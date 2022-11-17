@@ -14,8 +14,10 @@ from .utils import (
     connected_components,
     connected_component_to_bounding_rectangle
 )
+from .solutions_registry import register
 
 
+@register("007bbfb7")
 def create_transform_007bbfb7() -> Transform:
     def the_transformation(input_matrix: np.array) -> np.array:
         conditional = Conditional([
@@ -26,6 +28,7 @@ def create_transform_007bbfb7() -> Transform:
     return the_transformation
 
 
+@register("25d8a9c8")
 def create_transform_25d8a9c8() -> Transform:
     def the_transformation(input_matrix: np.array) -> np.array:
         conditional = Conditional([
@@ -36,12 +39,14 @@ def create_transform_25d8a9c8() -> Transform:
     return the_transformation
 
 
+@register("963e52fc")
 def create_transform_963e52fc() -> Transform:
     def the_transformation(input_matrix: np.array) -> np.array:
         return RepeatHorizontalPattern(input_matrix.shape[1])(input_matrix)
     return the_transformation
 
 
+@register("6855a6e4")
 def create_transform_6855a6e4(MOVING=5, GATE=2, CLEAR=0) -> Transform:
     get_moving_mask = MaskByValue(MOVING)
     get_gate_mask = MaskByValue(GATE)
@@ -125,6 +130,7 @@ def create_transform_6855a6e4(MOVING=5, GATE=2, CLEAR=0) -> Transform:
     return the_transformation
 
 
+@register("6d75e8bb")
 def create_transform_6d75e8bb(SCAFFOLD=8, COMPLETE=2, CLEAR=0) -> Transform:
     get_scaffold_mask = MaskByValue(SCAFFOLD)
 
@@ -141,6 +147,7 @@ def create_transform_6d75e8bb(SCAFFOLD=8, COMPLETE=2, CLEAR=0) -> Transform:
     return the_transformation
 
 
+@register("44d8ac46")
 def create_transform_44d8ac46(SCAFFOLD=5, COMPLETE=2, CLEAR=0) -> Transform:
     get_scaffold_mask = MaskByValue(SCAFFOLD)
     get_clear_mask = MaskByValue(CLEAR)

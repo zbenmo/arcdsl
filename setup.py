@@ -1,9 +1,10 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='arcdsl',
     maintainer='zbenmo@gmail.com',
     version='0.1.0',
+    packages=find_packages(),
     install_requires=[
         'numpy>=1.23.4, <1.24',
         'opencv-contrib-python>=4.6.0.66, <4.7',
