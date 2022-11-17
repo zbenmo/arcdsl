@@ -21,7 +21,7 @@ A human can solve almost all tasks very easily.
 How to achieve that with software? ML? DNN? RL? Search? Rule based?
 
 While playing with ideas, I have decided to try to solve the tasks with manual written software.
-So I've created a "Trasformer" that receives an input matrix and produces the desired output.
+So I've created a "Trasform" that receives an input matrix and produces the desired output.
 This transformer can be tested on all train examples, and then used to provide an answer for the test/evaluation input.
 There is some effort involved also here. While each task is clear once you figure out the logic, you still need to write some code. Not clear how easy it will be for a computer both to discover what needs to be done and then to create the mechanism to do it.
 
@@ -30,4 +30,4 @@ Most operations are wrappers around numpy. While the tasks are given in a JSON f
 
 Also trying to write nice Pythonic code, with ideas from https://www.youtube.com/c/ArjanCodes and others. 
 
-A 'Transformer' is a protocol (actually a Callable). It receives a 2D matrix and returns a 2D matrix. The output matrix is not necessarily of the same size. Sometimes a transformer is simple and does not rely on the input matrix. This can be for example a horizontal flip. But when the transformation is dependant on the input matrix, or other stuff from the training / test examples, a wrapper or a closure may be needed.
+A 'Transform' is a protocol (actually a Callable). It receives a 2D matrix and returns a 2D matrix. The output matrix is not necessarily of the same size. Sometimes a transformer is simple and does not rely on the input matrix. This can be for example a horizontal flip. But when the transformation is dependant on the input matrix, or other stuff from the training / test examples, a wrapper or a closure may be needed.

@@ -104,6 +104,10 @@ class MaskByValue:
 class ReplaceByMask:
     """
     Returns a copy of the input_matrix, with cells that match the mask being replaced by the given value.
+
+    >>> ReplaceByMask(np.array([[0, 1], [0, 0]]), 7)(np.array([[3, 3], [3, 3]]))
+    array([[3, 7],
+           [3, 3]])
     """
 
     def __init__(self, mask: np.array, value: int) -> None:
@@ -112,3 +116,8 @@ class ReplaceByMask:
 
     def __call__(self, input_matrix: np.array) -> np.array:
         return np.where(self.mask, self.value, input_matrix)
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

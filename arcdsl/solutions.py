@@ -1,6 +1,6 @@
 import numpy as np
 from collections import Counter
-from .dsl import (
+from arcdsl.dsl import (
     Transform,
     Conditional,
     ConstMatrix,
@@ -10,11 +10,11 @@ from .dsl import (
     MaskByValue,
     ReplaceByMask
 )
-from .utils import (
+from arcdsl.utils import (
     connected_components,
     connected_component_to_bounding_rectangle
 )
-from .solutions_registry import register
+from arcdsl.solutions_registry import register
 
 
 @register("007bbfb7")
@@ -41,6 +41,13 @@ def create_transform_25d8a9c8() -> Transform:
 
 @register("963e52fc")
 def create_transform_963e52fc() -> Transform:
+    """
+
+    >>> create_transform_963e52fc()(np.array([[1, 0, 1], [0, 1, 0]]))
+    array([[1, 0, 1, 0, 1, 0],
+           [0, 1, 0, 1, 0, 1]])
+    """
+
     def the_transformation(input_matrix: np.array) -> np.array:
         return RepeatHorizontalPattern(input_matrix.shape[1])(input_matrix)
     return the_transformation
@@ -181,14 +188,6 @@ def create_transform_44d8ac46(SCAFFOLD=5, COMPLETE=2, CLEAR=0) -> Transform:
     return the_transformation
 
 
-def main():
-    transform = create_transform_007bbfb7()
-    transform = create_transform_25d8a9c8()
-    transform = create_transform_963e52fc()
-    transform = create_transform_6855a6e4()
-    transform = create_transform_6d75e8bb()
-    transform = create_transform_44d8ac46()
-
-
 if __name__ == "__main__":
-    main()
+    import doctest
+    doctest.testmod()

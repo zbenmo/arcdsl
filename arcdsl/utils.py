@@ -1,6 +1,6 @@
 import json
 import numpy as np
-from typing import List, Tuple
+from typing import List
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import cv2
