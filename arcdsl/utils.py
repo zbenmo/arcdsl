@@ -23,24 +23,29 @@ def show_sample(minput, moutput):
     for i, data in enumerate((minput, moutput)):
         ax[i].imshow(data, vmin=0, vmax=7)
 
+        # the text
         for row_i, row in enumerate(data):
             for col_i, cell in enumerate(row):
                 ax[i].text(col_i, row_i, cell, va='center', ha='center')
 
-    # for i, data in enumerate((minput, moutput)):
-    #     # ax[i].imshow(data)
+    # making the sizes correct to match for example (3x3) -> (9x9) etc.
+    max_shape_y = max(minput.shape[0], moutput.shape[0])
+    max_shape_x = max(minput.shape[1], moutput.shape[1])
 
-    #     ax[i].set_axis_off()
-    #     half_diffx = (9 - data.shape[0]) / 2
-    #     half_diffy = (9 - data.shape[1]) / 2
+    for i, data in enumerate((minput, moutput)):
+        ax[i].set_axis_off()
 
-    #     limx = [lim - half_diffx for lim in ax[1].get_xlim()]
-    #     limy = [lim - half_diffy for lim in ax[1].get_ylim()]
+        half_diffy = (max_shape_y - data.shape[0]) / 2
+        half_diffx = (max_shape_x - data.shape[1]) / 2
 
-    #     ax[i].set_xlim(limx)
-    #     ax[i].set_ylim(limy)
+        # using here ax[1] as '1' is the (indmax!!!): TODO!!
+        limy = [lim - half_diffy for lim in ax[1].get_ylim()]
+        limx = [lim - half_diffx for lim in ax[1].get_xlim()]
 
-    # # see https://stackoverflow.com/a/66977230/1614089        
+        ax[i].set_xlim(limx)
+        ax[i].set_ylim(limy)
+
+    # see https://stackoverflow.com/a/66977230/1614089        
 
     plt.show()
 
