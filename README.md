@@ -32,7 +32,6 @@ Also trying to write nice Pythonic code, with ideas from https://www.youtube.com
 
 A 'Transform' is a protocol (actually a Callable). It receives a 2D matrix and returns a 2D matrix. The output matrix is not necessarily of the same size. Sometimes a transformer is simple and does not rely on the input matrix. This can be for example a horizontal flip. But when the transformation is dependant on the input matrix, or other stuff from the training / test examples, a wrapper or a closure may be needed.
 
-IMPORTANT: get access to the (training) tasks from Kaggle.
+IMPORTANT: get access to the (training) tasks from Kaggle / Lab42. No JSON task is provided with this package.
 
-You can try from a notebook (an example is provided), or also with streamlit. I've added the 'runstapp' script.
-
+A notebook example is provided. Also a streamlit app is provided. I've added the 'runstapp' script which should run the streamlit app.

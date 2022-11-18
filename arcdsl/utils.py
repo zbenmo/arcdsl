@@ -32,15 +32,17 @@ def show_sample(minput, moutput, show=True):
     max_shape_y = max(minput.shape[0], moutput.shape[0])
     max_shape_x = max(minput.shape[1], moutput.shape[1])
 
+    idy = 0 if minput.shape[0] > moutput.shape[0] else 1
+    idx = 0 if minput.shape[1] > moutput.shape[1] else 1
+
     for i, data in enumerate((minput, moutput)):
         ax[i].set_axis_off()
 
         half_diffy = (max_shape_y - data.shape[0]) / 2
         half_diffx = (max_shape_x - data.shape[1]) / 2
 
-        # using here ax[1] as '1' is the (indmax!!!): TODO!!
-        limy = [lim - half_diffy for lim in ax[1].get_ylim()]
-        limx = [lim - half_diffx for lim in ax[1].get_xlim()]
+        limy = [lim - half_diffy for lim in ax[idy].get_ylim()]
+        limx = [lim - half_diffx for lim in ax[idx].get_xlim()]
 
         ax[i].set_xlim(limx)
         ax[i].set_ylim(limy)

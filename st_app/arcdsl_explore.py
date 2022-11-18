@@ -2,7 +2,7 @@ import streamlit as st
 
 import pathlib
 import numpy as np
-from itertools import islice
+# from itertools import islice
 import inspect
 
 from arcdsl.utils import (
