@@ -28,6 +28,14 @@ def examine_solution(train_task, solution_creation):
         if not np.array_equal(moutput, mpredicted):
             st.write("NOP!!!")
         st.pyplot(show_sample(minput, mpredicted, False))
+    for i, test_example in enumerate(file_contents['test']):
+        st.subheader(f'test')
+        minput = description_to_matrix(test_example['input'])
+        mpredicted = solution(minput) # good?
+        st.write(f'{minput.shape} -> {mpredicted.shape}')
+        # if not np.array_equal(moutput, mpredicted):
+        #     st.write("NOP!!!")
+        st.pyplot(show_sample(minput, mpredicted, False))
 
 
 training_path = pathlib.Path("training")
@@ -51,6 +59,11 @@ with tab1:
         minput, moutput = description_to_matrix(training_example['input']), description_to_matrix(training_example['output'])
         st.write(f'{minput.shape} -> {moutput.shape}')
         st.pyplot(show_sample(minput, moutput, show=False))
+    for i, test_example in enumerate(file_contents['test']):
+        st.subheader(f'test')
+        minput = description_to_matrix(training_example['input'])
+        # st.write(f'{minput.shape} -> {moutput.shape}')
+        st.pyplot(show_sample(minput, np.zeros(minput.shape, dtype=np.uint8), show=False))
 
 
 with tab2:

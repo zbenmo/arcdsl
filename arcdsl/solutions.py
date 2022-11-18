@@ -121,14 +121,11 @@ def create_transform_6855a6e4(MOVING=5, GATE=2, CLEAR=0) -> Transform:
         new_mask = np.zeros(input_matrix.shape, dtype=np.uint8)
         for moving in moving_objects:
             gate = find_closest(moving, gates_processed)
+            ys, xs = list(zip(*moving))
             if gate['vertical']:
-                for y, x in moving:
-                    new_x = flip(x, gate['x_body'])
-                    new_mask[y, new_x] = 1
+                new_mask[ys, [flip(x, gate['x_body']) for x in xs]] = 1
             else:
-                for y, x in moving:
-                    new_y = flip(y, gate['y_body'])
-                    new_mask[new_y, x] = 1
+                new_mask[[flip(y, gate['y_body']) for y in ys], xs] = 1
 
         clear_moving_from_old_position = ReplaceByMask(moving_mask, CLEAR)
         add_moving_in_new_position = ReplaceByMask(new_mask, MOVING)  

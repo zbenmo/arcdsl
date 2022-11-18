@@ -68,6 +68,12 @@ def examine_solution(train_task, solution):
             print("NOP!!!")
         show_sample(minput, mpredicted)
 
+    for i, test_example in enumerate(file_contents['test']):
+        print(">> test")
+        minput = description_to_matrix(test_example['input'])
+        mpredicted = solution(minput) # good?
+        show_sample(minput, mpredicted)
+
 
 def connected_components(input_matrix: np.array):
     """

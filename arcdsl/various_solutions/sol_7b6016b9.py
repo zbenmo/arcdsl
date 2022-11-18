@@ -34,11 +34,11 @@ def create_transform_7b6016b9(BACKGROUND=0, BLOCKED=2, FREE=3) -> Transform:
                 background_bounding_rectangle[0].stop == input_matrix.shape[0] or
                 background_bounding_rectangle[1].stop == input_matrix.shape[1]
             )
-            for y, x in background:
-                if is_free:
-                    free_mask[y, x] = 1
-                else:
-                    blocked_mask[y, x] = 1
+            ys, xs = list(zip(*background))
+            if is_free:
+                free_mask[ys, xs] = 1
+            else:
+                blocked_mask[ys, xs] = 1
 
         add_free = ReplaceByMask(free_mask, FREE)
         add_blocked = ReplaceByMask(blocked_mask, BLOCKED)
