@@ -13,6 +13,8 @@ setup(
         'interactive': [
             'matplotlib>=3.6.1, <3.7',
             'jupyterlab>=3.4.8, <3.5',
+            'streamlit>=1.15.0, <1.16',
         ],
-    }
+    },
+    scripts=['bin/runstapp'],
 )

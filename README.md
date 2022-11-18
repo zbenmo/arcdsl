@@ -31,3 +31,8 @@ Most operations are wrappers around numpy. While the tasks are given in a JSON f
 Also trying to write nice Pythonic code, with ideas from https://www.youtube.com/c/ArjanCodes and others. 
 
 A 'Transform' is a protocol (actually a Callable). It receives a 2D matrix and returns a 2D matrix. The output matrix is not necessarily of the same size. Sometimes a transformer is simple and does not rely on the input matrix. This can be for example a horizontal flip. But when the transformation is dependant on the input matrix, or other stuff from the training / test examples, a wrapper or a closure may be needed.
+
+IMPORTANT: get access to the (training) tasks from Kaggle.
+
+You can try from a notebook (an example is provided), or also with streamlit. I've added the 'runstapp' script.
+

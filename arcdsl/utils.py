@@ -14,7 +14,7 @@ def description_to_matrix(description: List) -> np.array:
     return np.array(description, dtype=np.uint8)
 
 
-def show_sample(minput, moutput):
+def show_sample(minput, moutput, show=True):
     fig = plt.figure(constrained_layout=True)
 
     gs = GridSpec(1, 2, figure=fig)
@@ -47,7 +47,10 @@ def show_sample(minput, moutput):
 
     # see https://stackoverflow.com/a/66977230/1614089        
 
-    plt.show()
+    if show:
+        plt.show()
+    else:
+        return fig
 
 
 def examine_solution(train_task, solution):
