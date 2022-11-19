@@ -15,9 +15,13 @@ from arcdsl.utils import (
 from arcdsl.solutions_registry import registry
 
 
-def examine_solution(train_task, solution_creation):
+def examine_solution(train_task, solutions_creation):
     st.header(train_task)
-    st.code(inspect.getsource(solution_creation))
+    for solution_creation in solutions_creation:
+        st.code(inspect.getsource(solution_creation))
+    if len(solutions_creation) > 1:
+        st.write('Using the last solution (above this text line) in next examinations.')
+    solution_creation = solutions_creation[-1]
     file_contents = get_task(train_task)
     solution = solution_creation()
     for i, training_example in enumerate(file_contents['train']):
@@ -61,7 +65,7 @@ with tab1:
         st.pyplot(show_sample(minput, moutput, show=False))
     for i, test_example in enumerate(file_contents['test']):
         st.subheader(f'test')
-        minput = description_to_matrix(training_example['input'])
+        minput = description_to_matrix(test_example['input'])
         # st.write(f'{minput.shape} -> {moutput.shape}')
         st.pyplot(show_sample(minput, np.zeros(minput.shape, dtype=np.uint8), show=False))
 

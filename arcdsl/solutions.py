@@ -1,5 +1,6 @@
 import numpy as np
 from collections import Counter
+from dataclasses import dataclass
 from arcdsl.dsl import (
     Transform,
     Conditional,
@@ -8,7 +9,8 @@ from arcdsl.dsl import (
     create_foreach_cell,
     create_foreach_row,
     MaskByValue,
-    ReplaceByMask
+    ReplaceByMask,
+    ReplaceSpecificValue
 )
 from arcdsl.utils import (
     connected_components,
@@ -151,6 +153,25 @@ def create_transform_6d75e8bb(SCAFFOLD=8, COMPLETE=2, CLEAR=0) -> Transform:
     return the_transformation
 
 
+@register("6d75e8bb")
+def alternative_ct_to_6d75e8bb(SCAFFOLD=8, COMPLETE=2, CLEAR=0) -> Transform:
+    get_scaffold_mask = MaskByValue(SCAFFOLD)
+    replace_specific_value = ReplaceSpecificValue(CLEAR, COMPLETE)
+
+    def the_transformation(input_matrix: np.array) -> np.array:
+        scaffold_mask = get_scaffold_mask(input_matrix)
+        scaffold_objects = connected_components(scaffold_mask)
+        output_matrix = input_matrix.copy()
+        for scaffold in scaffold_objects:
+            scaffold_bounding_rectangle = connected_component_to_bounding_rectangle(scaffold)
+            output_matrix[scaffold_bounding_rectangle] = (
+                replace_specific_value(input_matrix[scaffold_bounding_rectangle])
+            )
+        return output_matrix
+
+    return the_transformation
+
+
 @register("44d8ac46")
 def create_transform_44d8ac46(SCAFFOLD=5, COMPLETE=2, CLEAR=0) -> Transform:
     get_scaffold_mask = MaskByValue(SCAFFOLD)
@@ -181,6 +202,44 @@ def create_transform_44d8ac46(SCAFFOLD=5, COMPLETE=2, CLEAR=0) -> Transform:
                     complete_mask[adjusted_clear_ind_exp] = 1
         add_complete = ReplaceByMask(complete_mask, COMPLETE)
         return add_complete(input_matrix)
+
+    return the_transformation
+
+
+@register("44d8ac46")
+def alternative_ct_to_44d8ac46(SCAFFOLD=5, COMPLETE=2, CLEAR=0) -> Transform:
+
+    class Helper:
+        get_clear_mask = MaskByValue(CLEAR)
+
+        def __call__(self, input_matrix: np.array) -> np.array:
+            output_matrix = input_matrix.copy()
+            clear_mask = self.get_clear_mask(input_matrix)
+            clear_objects = connected_components(clear_mask)
+            for clear in clear_objects:
+                clear_bounding_rectangle = connected_component_to_bounding_rectangle(clear)
+                if (
+                    clear_bounding_rectangle[0].stop - clear_bounding_rectangle[0].start !=
+                    clear_bounding_rectangle[1].stop - clear_bounding_rectangle[1].start
+                ) :
+                    continue # apparently not a square
+                if np.all(input_matrix[clear_bounding_rectangle] == CLEAR): # are all cells clear?
+                    output_matrix[clear_bounding_rectangle] = COMPLETE
+            return output_matrix
+
+    get_scaffold_mask = MaskByValue(SCAFFOLD)
+    helper = Helper()
+
+    def the_transformation(input_matrix: np.array) -> np.array:
+        output_matrix = input_matrix.copy()
+        scaffold_mask = get_scaffold_mask(input_matrix)
+        scaffold_objects = connected_components(scaffold_mask)
+        for scaffold in scaffold_objects:
+            scaffold_bounding_rectangle = connected_component_to_bounding_rectangle(scaffold)
+            output_matrix[scaffold_bounding_rectangle] = (
+                helper(input_matrix[scaffold_bounding_rectangle])
+            )
+        return output_matrix
 
     return the_transformation
 

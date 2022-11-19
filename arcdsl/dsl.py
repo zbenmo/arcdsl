@@ -1,5 +1,6 @@
 import numpy as np
 from typing import Protocol
+from dataclasses import dataclass
 
 
 class Transform(Protocol):
@@ -116,6 +117,24 @@ class ReplaceByMask:
 
     def __call__(self, input_matrix: np.array) -> np.array:
         return np.where(self.mask, self.value, input_matrix)
+
+
+@dataclass
+class ReplaceSpecificValue:
+    """
+    Returns a copy of the input_matrix,
+    with cells originally having a value of from_value having now a value of to_value.
+
+    >>> ReplaceSpecificValue(0, 5)(np.array([[0, 1], [0, 0]]))
+    array([[5, 1],
+           [5, 5]])
+    """
+
+    from_value: int
+    to_value: int
+
+    def __call__(self, input_matrix: np.array) -> np.array:
+        return np.where(input_matrix != self.from_value, input_matrix, self.to_value)
 
 
 if __name__ == "__main__":

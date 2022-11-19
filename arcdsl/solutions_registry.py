@@ -3,13 +3,14 @@ Solutions registry
 """
 
 from .dsl import Transform
+from collections import defaultdict
 
 
-registry = dict()
+registry = defaultdict(list)
 
 
 def register(task: str):
     def wrapper(transform: Transform):
-        registry[task] = transform
+        registry[task].append(transform)
         return transform
     return wrapper
