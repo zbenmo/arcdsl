@@ -21,7 +21,7 @@ def show_sample(minput, moutput, show=True):
     ax = [fig.add_subplot(gs[0,0]), fig.add_subplot(gs[0,1])]
 
     for i, data in enumerate((minput, moutput)):
-        ax[i].imshow(data, vmin=0, vmax=7)
+        ax[i].imshow(data, vmin=0, vmax=9)
 
         # the text
         for row_i, row in enumerate(data):

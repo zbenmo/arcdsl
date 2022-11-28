@@ -66,8 +66,8 @@ with tab1:
     for i, test_example in enumerate(file_contents['test']):
         st.subheader(f'test')
         minput = description_to_matrix(test_example['input'])
-        # st.write(f'{minput.shape} -> {moutput.shape}')
-        st.pyplot(show_sample(minput, np.zeros(minput.shape, dtype=np.uint8), show=False))
+        st.write(f'{minput.shape} -> ?')
+        st.pyplot(show_sample(minput, np.zeros_like(minput), show=False))
 
 
 with tab2:

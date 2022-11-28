@@ -41,6 +41,18 @@ def create_transform_25d8a9c8() -> Transform:
     return the_transformation
 
 
+@register("25d8a9c8")
+def alternative_ct_to_25d8a9c8() -> Transform:
+    def the_transformation(input_matrix: np.array) -> np.array:
+        output_matrix = np.zeros_like(input_matrix)
+        for i_row, row in enumerate(input_matrix):
+            if np.all(row == row[0]):
+                output_matrix[i_row, :] = 5
+        return output_matrix
+
+    return the_transformation
+
+
 @register("963e52fc")
 def create_transform_963e52fc() -> Transform:
     """
